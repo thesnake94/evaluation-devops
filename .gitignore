@@ -1,0 +1,22 @@
+# Environnement Python
+.venv/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# Pytest / couverture
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Variables et secrets
+.env
+
+# Logs
+*.log
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
