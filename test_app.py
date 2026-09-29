@@ -24,3 +24,18 @@ def test_visits_uses_redis():
 
     assert second_response.status_code == 200
     assert second_response.get_json()["visits"] == 2
+
+
+def test_metrics():
+    client = app.test_client()
+
+    client.get("/health")
+    response = client.get("/metrics")
+
+    assert response.status_code == 200
+
+    metrics = response.get_data(as_text=True)
+
+    assert "http_requests_total" in metrics
+    assert "http_request_duration_seconds" in metrics
+    assert "app_deployed_version" in metrics

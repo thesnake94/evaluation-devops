@@ -36,6 +36,7 @@ start_application() {
         --name "$APP_CONTAINER" \
         --network "$NETWORK_NAME" \
         -e REDIS_HOST="$REDIS_CONTAINER" \
+        -e APP_VERSION="$tag" \
         -p 5000:5000 \
         "${IMAGE_NAME}:${tag}"
 }

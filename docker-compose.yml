@@ -9,6 +9,7 @@ services:
 
     environment:
       REDIS_HOST: redis
+      APP_VERSION: ${APP_VERSION:-local}
 
     depends_on:
       redis:
@@ -36,3 +37,18 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+
+
+  prometheus:
+    image: prom/prometheus:v3.14.0
+
+    ports:
+      - "9090:9090"
+
+    volumes:
+      - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./observability/alert_rules.yml:/etc/prometheus/alert_rules.yml:ro
+
+    depends_on:
+      web:
+        condition: service_healthy
